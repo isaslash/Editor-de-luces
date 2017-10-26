@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 
 
+
 public class LigthsConfigCreator {
 
     [MenuItem("utilities/create Light Config")]

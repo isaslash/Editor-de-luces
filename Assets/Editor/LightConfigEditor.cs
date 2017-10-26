@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(LightsConfig))]
-public class LightsEditor : Editor
+public class LightConfigEditor : Editor
 {
     private LightsConfig _target;
 
@@ -15,12 +15,12 @@ public class LightsEditor : Editor
     public override void OnInspectorGUI()
     {
 
-        base.OnInspectorGUI();
+        //base.OnInspectorGUI();
 		EditorGUILayout.LabelField ("configuracion de luces", EditorStyles.boldLabel);
         _target.name = EditorGUILayout.TextField("Name", _target.name);
 		_target.bounceIntencity = EditorGUILayout.FloatField ("Bounce Intencity",_target.bounceIntencity);
 		_target.spotValor = EditorGUILayout.FloatField ("Spot Angle", _target.spotValor);
-		_target.intensity = EditorGUILayout.FloatField ("Intencidad", _target.intensity);
+		_target.intensity = EditorGUILayout.FloatField ("Intensidad", _target.intensity);
 		_target.color = EditorGUILayout.ColorField ("color", _target.color);
 
 		//_target.spotValor = EditorGUILayout.Slider ("spotAngle", _target.spotValor, 0, 100);
