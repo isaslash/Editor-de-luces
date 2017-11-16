@@ -6,6 +6,7 @@ using UnityEditor;
 [CustomEditor(typeof(LightsConfig))]
 public class LightConfigEditor : Editor
 {
+    public options op;
     private LightsConfig _target;
 
     private void OnEnable()
@@ -14,17 +15,39 @@ public class LightConfigEditor : Editor
     }
     public override void OnInspectorGUI()
     {
-
-        //base.OnInspectorGUI();
-		EditorGUILayout.LabelField ("configuracion de luces", EditorStyles.boldLabel);
         _target.name = EditorGUILayout.TextField("Name", _target.name);
+        op = (options)EditorGUILayout.EnumPopup("Light Type", op);
 		_target.bounceIntencity = EditorGUILayout.FloatField ("Bounce Intencity",_target.bounceIntencity);
 		_target.spotValor = EditorGUILayout.FloatField ("Spot Angle", _target.spotValor);
 		_target.intensity = EditorGUILayout.FloatField ("Intensidad", _target.intensity);
 		_target.color = EditorGUILayout.ColorField ("color", _target.color);
+        instantiateop(op);
 
-		//_target.spotValor = EditorGUILayout.Slider ("spotAngle", _target.spotValor, 0, 100);
-		//EditorGUI.ProgressBar (GUILayoutUtility.GetRect (15, 15, "textField"), _target.spotValor / 100, _target.spotValor + "%");
+    }
+    void instantiateop(options op)
+    {
+        switch (op)
+        {
+            case options.Spot:
+                _target.type = LightType.Spot;
+                break;
+            case options.Directional:
+                _target.type = LightType.Directional;
+                break;
+            case options.Point:
+                _target.type = LightType.Point;
+                break;
+            case options.Area:
+                _target.type = LightType.Area;
+                break;
+        }
+    }
+    public enum options
+    {
+      Spot = 0,
+      Directional = 1,
+      Point = 2,
+      Area = 3
     }
 }
 
