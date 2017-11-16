@@ -11,5 +11,4 @@ public class LightsConfig : ScriptableObject {
 	public Light light;
 	public float bounceIntencity;
 
-
 }
