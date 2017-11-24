@@ -12,6 +12,7 @@ public class LightsCreator : EditorWindow
     float intensity;
     Color color;
     options op;
+	LightType luz;
     LightsConfig lc;
     Light newlight;
 
@@ -22,14 +23,16 @@ public class LightsCreator : EditorWindow
     }
     void OnGUI()
     {
+		GUILayout.Label ("                                  Creador de luces", EditorStyles.boldLabel);
+		GUI.DrawTexture(GUILayoutUtility.GetRect(50,120),(Texture2D)Resources.Load("foco"));
         name = EditorGUILayout.TextField("Name", name);
-        op = (options)EditorGUILayout.EnumPopup("Light Type", op);
+		op = (options)EditorGUILayout.EnumPopup("Light Type", op);
         bounceintensity = EditorGUILayout.FloatField("Bounce Intencity", bounceintensity);
         spot = EditorGUILayout.FloatField("Spot Angle", spot);
         intensity = EditorGUILayout.FloatField("Intensidad", intensity);
         color = EditorGUILayout.ColorField("color", color);
         Rect rectOpenNew = EditorGUILayout.BeginHorizontal("Button");
-        
+
         if (GUI.Button(rectOpenNew, GUIContent.none))
         {
             lc = ScriptableObjectUtility.CreateAssetAndReturn<LightsConfig>();
@@ -38,13 +41,15 @@ public class LightsCreator : EditorWindow
             lc.spotValor = spot;
             lc.intensity = intensity;
             lc.color = color;
-            instantiateop(op);
+			instantiateop(op);
+			lc.type = luz;
             GameObject light = new GameObject(name);
             light.AddComponent<Light>();
             light.GetComponent<Light>().bounceIntensity = bounceintensity;
             light.GetComponent<Light>().spotAngle = spot;
             light.GetComponent<Light>().intensity = intensity;
             light.GetComponent<Light>().color = color;
+			light.GetComponent<Light>().type = luz;
 
         }
 
@@ -56,16 +61,16 @@ public class LightsCreator : EditorWindow
         switch (op)
         {
             case options.Spot:
-                lc.type = LightType.Spot;
+			    luz = LightType.Spot;
                 break;
             case options.Directional:
-                lc.type = LightType.Directional;
+			    luz = LightType.Directional;
                 break;
             case options.Point:
-                lc.type = LightType.Point;
+			    luz = LightType.Point;
                 break;
             case options.Area:
-                lc.type = LightType.Area;
+			    luz = LightType.Area;
                 break;
         }
     }
